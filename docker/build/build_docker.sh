@@ -2,7 +2,7 @@
 TAB="    " # 4 Spaces
 
 APOLLO_REPO="apolloauto/apollo"
-UBUNTU_LTS="18.04"
+UBUNTU_LTS="20.04"
 
 SUPPORTED_ARCHS=(
     x86_64
@@ -105,12 +105,12 @@ function determine_cuda_versions() {
     local dist="$2"
     if [[ "${arch}" == "x86_64" ]]; then
         if [[ "${dist}" == "stable" ]]; then
-            CUDA_LITE=11.1
-            CUDNN_VERSION="8.0.4.30"
-            TENSORRT_VERSION="7.2.1"
+            CUDA_LITE=11.4
+            CUDNN_VERSION="8.2.2.26"
+            TENSORRT_VERSION="8.2.2"
         else # testing
             CUDA_LITE=11.1
-            CUDNN_VERSION="8.0.4.30"
+            CUDNN_VERSION="8.2.2.26"
             TENSORRT_VERSION="7.2.1"
         fi
     else # aarch64
@@ -174,6 +174,7 @@ function determine_images_in_out_x86_64() {
         IMAGE_OUT="${base_image}"
     elif [[ "${stage}" == "cyber" ]]; then
         IMAGE_IN="${base_image}"
+        IMAGE_IN=ros_cudagl:galactic-desktop_cuda11.4.1-devel-ubuntu20.04
         if [[ "${dist}" == "stable" ]]; then
             IMAGE_OUT="${APOLLO_REPO}:cyber-x86_64-${UBUNTU_LTS}-${timestamp}"
         else
@@ -386,7 +387,7 @@ function docker_build_run() {
     elif [[ "${TARGET_STAGE}" == "cyber" || "${TARGET_STAGE}" == "dev" ]]; then
         build_args="${build_args} --build-arg APOLLO_DIST=${TARGET_DIST}"
         build_args="${build_args} --build-arg GEOLOC=${TARGET_GEOLOC}"
-        build_args="${build_args} --build-arg CLEAN_DEPS=yes"
+        # build_args="${build_args} --build-arg CLEAN_DEPS=yes"
         build_args="${build_args} --build-arg INSTALL_MODE=${INSTALL_MODE}"
     elif [[ "${TARGET_STAGE}" == "runtime" ]]; then
         build_args="${build_args} --build-arg GEOLOC=${TARGET_GEOLOC}"

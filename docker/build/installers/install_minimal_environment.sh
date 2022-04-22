@@ -45,7 +45,6 @@ fi
 # Disabled:
 #   apt-file
 apt_get_update_and_install \
-    apt-utils \
     bc      \
     curl    \
     file    \
@@ -79,15 +78,13 @@ if [[ "${MY_STAGE}" != "runtime" ]]; then
         build-essential \
         autoconf    \
         automake    \
-        gcc-7       \
-        g++-7       \
         gdb         \
         libtool     \
         patch       \
         pkg-config      \
-        python3-dev     \
-        libexpat1-dev   \
-        linux-libc-dev
+        python3-dev     
+        # libexpat1-dev   \
+        # linux-libc-dev
     # Note(storypku):
     # Set the last two packages to manually installed:
     #   libexpat1-dev was required by python3-dev

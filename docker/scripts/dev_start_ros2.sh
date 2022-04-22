@@ -21,14 +21,14 @@ source "${CURR_DIR}/docker_base.sh"
 CACHE_ROOT_DIR="${APOLLO_ROOT_DIR}/.cache"
 
 DOCKER_REPO="apolloauto/apollo"
-DEV_CONTAINER="apollo_dev_${USER}"
+# DEV_CONTAINER="apollo_dev_${USER}"
+DEV_CONTAINER="ros2_dev"
 DEV_INSIDE="in-dev-docker"
 
 SUPPORTED_ARCHS=(x86_64 aarch64)
 TARGET_ARCH="$(uname -m)"
 
-# VERSION_X86_64="dev-x86_64-18.04-20210914_1336"
-VERSION_X86_64="dev-x86_64-20.04-20220413_1419"
+VERSION_X86_64="cyber-x86_64-20.04-20220413_1300"
 TESTING_VERSION_X86_64="dev-x86_64-18.04-testing-20210112_0008"
 
 VERSION_AARCH64="dev-aarch64-18.04-20201218_0030"
@@ -382,6 +382,9 @@ function main() {
 
     set -x
 
+    # DEV_IMAGE=evas/ai:galactic-desktop_cuda11.4.1-devel-ubuntu20.04
+    DEV_IMAGE=evas/ai:ros2-autoware-dev_v20220414
+
     ${DOCKER_RUN_CMD} -itd \
         --privileged \
         --name "${DEV_CONTAINER}" \
@@ -395,8 +398,6 @@ function main() {
         -e USE_GPU_HOST="${USE_GPU_HOST}" \
         -e NVIDIA_VISIBLE_DEVICES=all \
         -e NVIDIA_DRIVER_CAPABILITIES=compute,video,graphics,utility \
-        ${MAP_VOLUMES_CONF} \
-        ${OTHER_VOLUMES_CONF} \
         ${local_volumes} \
         --net host \
         -w /apollo \
@@ -406,6 +407,8 @@ function main() {
         --shm-size "${SHM_SIZE}" \
         --pid=host \
         -v /dev/null:/dev/raw1394 \
+        -v /home/$USER:/home/host_$USER \
+        -v /home/work/github/autoware:/autoware \
         "${DEV_IMAGE}" \
         /bin/bash
 

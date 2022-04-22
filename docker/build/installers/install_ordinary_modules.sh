@@ -23,6 +23,15 @@ CURR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 . ${CURR_DIR}/installer_base.sh
 
 #######################################################
+COMPONENT="modules/tools"
+info "Install support for [${COMPONENT}] ..."
+bash ${CURR_DIR}/install_python_modules.sh
+
+# Modules that DON'T need pre-installed dependencies
+# modules/v2x
+# modules/storytelling
+# modules/routing
+#######################################################
 
 COMPONENT="modules/common"
 info "Install support for [${COMPONENT}] ..."
@@ -62,16 +71,6 @@ COMPONENT="modules/localization"
 info "Install support for [${COMPONENT}] ..."
 
 ok "Good, no extra deps for localization. "
-
-#######################################################
-COMPONENT="modules/tools"
-info "Install support for [${COMPONENT}] ..."
-bash ${CURR_DIR}/install_python_modules.sh
-
-# Modules that DON'T need pre-installed dependencies
-# modules/v2x
-# modules/storytelling
-# modules/routing
 
 ######################################################
 COMPONENT="modules/teleop"

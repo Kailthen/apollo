@@ -27,6 +27,9 @@ function _create_user_account() {
   adduser --disabled-password --force-badname --gecos '' \
     "${user_name}" --uid "${uid}" --gid "${gid}" # 2>/dev/null
 
+  echo "${user_name}:${user_name}" | chpasswd
+  echo "${user_name} ALL=(ALL) NOPASSWD : ALL" > /etc/sudoers.d/nopasswd4sudo
+
   usermod -aG sudo "${user_name}"
   usermod -aG video "${user_name}"
 }

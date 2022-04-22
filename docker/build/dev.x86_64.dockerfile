@@ -18,6 +18,8 @@ RUN bash /opt/apollo/installers/install_ordinary_modules.sh ${INSTALL_MODE}
 RUN bash /opt/apollo/installers/install_drivers_deps.sh ${INSTALL_MODE}
 RUN bash /opt/apollo/installers/install_dreamview_deps.sh ${GEOLOC}
 RUN bash /opt/apollo/installers/install_contrib_deps.sh ${INSTALL_MODE}
+ENV CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-11.4
+ENV PATH $PATH:/usr/local/cuda-11.4/bin
 RUN bash /opt/apollo/installers/install_gpu_support.sh
 RUN bash /opt/apollo/installers/install_release_deps.sh
 
