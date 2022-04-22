@@ -37,7 +37,14 @@ pip3_install -r py3_requirements.txt
 
 # Since pypcd installed via `pip install` only works with python2.7,
 # we can only install it this way
-git clone https://github.com/DanielPollithy/pypcd
+n=0
+until [ $n -ge 15 ]
+do
+    git clone https://github.com/DanielPollithy/pypcd && break
+    n=$[$n+1]
+    sleep 1
+done
+
 
 pushd pypcd >/dev/null
     make install

@@ -85,7 +85,7 @@ function apollo_environ_setup() {
         echo "${SYSROOT_DIR}/lib" | tee -a "${APOLLO_LD_FILE}"
     fi
     if [ ! -f "${APOLLO_PROFILE}" ]; then
-        cp -f /opt/apollo/rcfiles/apollo.sh.sample "${APOLLO_PROFILE}"
+        # cp -f /opt/apollo/rcfiles/apollo.sh.sample "${APOLLO_PROFILE}"
         echo "add_to_path ${SYSROOT_DIR}/bin" >> "${APOLLO_PROFILE}"
     fi
     if [ ! -f "${DOWNLOAD_LOG}" ]; then
